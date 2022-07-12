@@ -1,0 +1,7 @@
+{
+    "/setup/**": {
+        "target": "http://localhost:8078",
+        "secure": false,
+        "logLevel": "debug"
+    }
+}

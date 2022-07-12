@@ -1,0 +1,32 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+mat-drawer-container {
+  height: 100%;
+}
+
+mat-drawer {
+  width: 200px;
+  height: 100%;
+  background-color: gainsboro;
+}
+
+.sideNavTool {
+  height: 100%;
+  background-color: white;
+}
+
+a.mat-list-item {
+  font-weight: bold;
+  font-size: larger;
+  font-family: 'Zawgyi-One';
+}
+
+mat-icon {
+  margin-right: 10px;
+}
+
+span.mat-list-item-content:hover {
+  background-color: yellow;
+}
