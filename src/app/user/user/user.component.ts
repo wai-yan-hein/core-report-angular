@@ -1,4 +1,4 @@
-import { Dialog } from '@angular/cdk/dialog';
+
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -14,6 +14,7 @@ export class UserComponent implements OnInit {
   user: User = null;
   hide = true;
   loading = false;
+  
   email = new FormControl('', [Validators.required, Validators.email]);
   userName = new FormControl('', [Validators.required, Validators.required]);
 
