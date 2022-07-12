@@ -1,0 +1,24 @@
+<mat-card>
+    <mat-card-title>Core Attendance</mat-card-title>
+<mat-card-content>
+  <div fxLayout="row">
+    <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+      <p>
+        <mat-form-field appearance="outline">
+          <input type="text" matInput placeholder="Username" [(ngModel)]="user.shortName" formControlName="shortname">
+          <mat-error *ngIf="!loginForm.value.shortname">Please enter User Name</mat-error>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="outline">
+          <input type="password" matInput placeholder="Password" [(ngModel)]="user.password" formControlName="password">
+          <mat-error *ngIf="!loginForm.value.password">Please enter pPassword</mat-error>
+        </mat-form-field>
+      </p>
+      <div class="button">
+        <button mat-flat-button color="primary" type="submit" mat-button>Login</button>
+      </div>
+    </form>
+  </div>
+</mat-card-content>
+</mat-card>

@@ -22,12 +22,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DialogComponent } from './dialog/dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { LoginComponent } from './features/login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
     StockReportComponent,
     UserComponent,
-    DialogComponent
+    DialogComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

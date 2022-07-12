@@ -1,10 +1,12 @@
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { Router } from "@angular/router";
 import { Injectable } from "@angular/core";
-import { catchError, Observable } from "rxjs";
+import { Observable, BehaviorSubject, map, observable } from "rxjs";
 import { HandleError, HttpErrorHandler } from "src/app/http-error-handler.service";
+import { environment } from "src/environments/environment";
 import { User } from "./user";
-
-const httpheader = new HttpHeaders({
+const reportApi = environment.Report_API;
+const httpHeader = new HttpHeaders({
   'Content-Type': 'application/json',
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'Content-Type',
@@ -14,16 +16,63 @@ const httpheader = new HttpHeaders({
   providedIn: 'root'
 })
 export class UserService {
-  private handleError: HandleError;
-  constructor(private http: HttpClient) { }
+
+  private userSubject!: BehaviorSubject<User>;
+  public user!: Observable<User>
+
+  constructor(private route:Router,private http: HttpClient) {
+    this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')))
+    this.user = this.userSubject.asObservable();
+  }
+
+  public get userValue(): User {
+    return this.userSubject.value;
+  }
+
+  //login User
+  loginUser(user: User):Observable<User> {
+    let uri = `${reportApi}/api/login`
+    console.log(uri)
+    let httpOption = { headers: httpHeader }
+    return new Observable(observable=>{
+      this.http.post<User>(uri, user, httpOption).subscribe((_user: User) => {
+        localStorage.setItem('user', JSON.stringify(_user));
+        this.userSubject.next(_user);
+        observable.next(_user)
+        observable.complete()
+      })
+    })
+    
+    // return this.http.post<User>(uri,user,httpOption).pipe(map(user=>{
+    //   // let userData=
+    //   // {
+    //   //   userCode: '',
+    //   //   userName: '',
+    //   //   shortName: '',
+    //   //   password: '',
+    //   //   phone: '',
+    //   //   email: '',
+    //   //   active: false,
+    //   // }
+    //   localStorage.setItem('user',JSON.stringify(user));
+    //   this.userSubject.next(user);
+    // }))
+  }
+
+  //logout user
+  LogoutUser() {
+    localStorage.removeItem('user')
+    this.userSubject.next(null)
+    this.route.navigate(['/login'])
+  }
 
   //get User
   getUser() { }
 
   //add or edit User
   saveUser(user: User): Observable<User> {
-    let uri = `http://localhost:100/api/save-user`
-    let httpOption = { headers: httpheader }
+    let uri = `${reportApi}/api/save-user`
+    let httpOption = { headers: httpHeader }
     return this.http.post<User>(uri, user, httpOption);
   }
 }
