@@ -1,16 +1,22 @@
-import { NgModule } from '@angular/core';
+
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './features/login/login.component';
 import { StockReportComponent } from './stock/stock-report/stock-report.component';
 import { UserComponent } from './user/user/user.component';
 import { AuthGuardService } from './core/services/authGuard/auth-guard.service';
+import { LayoutsComponent } from './layouts/layouts.component';
 const routes: Routes = [
-  { path: 'stock', component: StockReportComponent,canActivate:[AuthGuardService] },
-  { path: 'user', component: UserComponent,canActivate:[AuthGuardService]  },
-  {path:'login',component:LoginComponent},
-  { path: '**', redirectTo: 'stock' },
-  {path:'',redirectTo:'login',pathMatch:'full'}
+  {
+    path: '', component: LayoutsComponent, canActivate: [AuthGuardService],children:[
+      { path: 'stock', component: StockReportComponent,  },
+      { path: 'user', component: UserComponent, },
+    ]
+  },
+  { path: 'login', component: LoginComponent },
+  { path: '**', redirectTo: '' },
+
 ];
 
 @NgModule({

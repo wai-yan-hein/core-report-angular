@@ -19,19 +19,22 @@ export class LoginComponent implements OnInit {
   })
 
   ngOnInit(): void {
-
+    // const user=this.userService.userValue;
+    // if(user!=null || user!=undefined)
+    // {
+    //   this.user=user
+    //   this.onLoginSubmit()
+    // }
   }
 
   onLoginSubmit(){
-    const UserData={
-      shortName:this.user.shortName,
-      password:this.user.password
-    }
+
     console.log(this.user)
     this.userService.loginUser(this.user).subscribe(userData=>{
       console.log("Login Success"+JSON.stringify(userData));
+      this.route.navigate(['/main']);
     });
-    this.route.navigate(['/']);
+    
   }
 
 }
