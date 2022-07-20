@@ -21,9 +21,18 @@ import { UserComponent } from './user/user/user.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DialogComponent } from './dialog/dialog.component';
+
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from './features/login/login.component';
 import { LayoutsComponent } from './layouts/layouts.component';
+import { RegionSetupComponent } from './features/region/region-setup/region-setup.component';
+import { CompanyComponent } from './features/company/company/company.component';
+import { CompanySetupComponent } from './features/company/company-setup/company-setup.component';
+import { MatSelectModule } from '@angular/material/select';
+import { RegionDialogComponent } from './features/region/region-dialog/region-dialog.component';
+import { UserListComponent } from './user/user-list/user-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +40,12 @@ import { LayoutsComponent } from './layouts/layouts.component';
     UserComponent,
     DialogComponent,
     LoginComponent,
-    LayoutsComponent
+    LayoutsComponent,
+    RegionSetupComponent,
+    CompanyComponent,
+    CompanySetupComponent,
+    RegionDialogComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +66,9 @@ import { LayoutsComponent } from './layouts/layouts.component';
     MatButtonModule,
     MatCheckboxModule,
     MatDialogModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   providers: [HttpErrorHandler, MessageService],
   bootstrap: [AppComponent]

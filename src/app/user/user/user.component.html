@@ -1,22 +1,24 @@
 <mat-card>
-  <mat-card-title>User Setup</mat-card-title>
-  <mat-divider inset></mat-divider>
+  <mat-card-header>
+    <mat-card-title>User Setup</mat-card-title>
+  <span class="example-spacer"></span>
+  <button mat-raised-button [routerLink]="'/user'">Back</button>
+  </mat-card-header>
+  <mat-divider ></mat-divider>
   <mat-card-content>
-    <form class="example-form" (ngSubmit)="save()">
+    <form class="example-form" [formGroup]="userForm" (ngSubmit)="save(userForm.value)">
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Enter your name</mat-label>
-        <input matInput [(ngModel)]="user.userName" name="userName" [formControl]="userName" required>
-        <mat-error *ngIf="userName.invalid">{{getErrorMessage()}}</mat-error>
+        <input matInput name="userName" formControlName="userName" required>
+        <mat-error *ngIf="!userForm.value.userName">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Enter your short name</mat-label>
-        <input matInput [(ngModel)]="user.shortName" name="userName" [formControl]="userName" required>
-        <mat-error *ngIf="userName.invalid">{{getErrorMessage()}}</mat-error>
+        <input matInput name="shortName" formControlName="shortName">
       </mat-form-field>
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Enter your password</mat-label>
-        <input matInput [(ngModel)]="user.password" [ngModelOptions]="{standalone:true}" name="password"
-          [type]="hide ? 'password' : 'text'">
+        <input matInput name="password" formControlName="password" [type]="hide ? 'password' : 'text'">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
           [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -24,21 +26,20 @@
       </mat-form-field>
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Phone No</mat-label>
-        <input matInput [(ngModel)]="user.phone" [ngModelOptions]="{standalone:true}" name="phone">
+        <input matInput name="phone" formControlName="phone">
       </mat-form-field>
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Enter your email</mat-label>
-        <input matInput placeholder="pat@example.com" [(ngModel)]="user.email" name="email" [formControl]="email"
-          required>
-        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        <input matInput placeholder="pat@example.com" name="email" formControlName="email" required>
+        <mat-error *ngIf="!userForm.value.email">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
       <div class="example-checkbox-row">
-        <mat-checkbox color="primary" [(ngModel)]="user.active" [ngModelOptions]="{standalone:true}">Active
+        <mat-checkbox color="primary" name="active" formControlName="active">Active
         </mat-checkbox>
       </div>
       <div class="example-button-row">
-        <button mat-raised-button type="submit" color="primary">Save</button>
-        <button mat-raised-button type="reset">Clear</button>
+        <button mat-raised-button type="submit" color="primary" [disabled]="!userForm.valid">Save</button>
+        <button mat-raised-button (click)="clearUser()" type="button">Clear</button>
       </div>
     </form>
   </mat-card-content>

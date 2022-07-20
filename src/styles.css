@@ -9,6 +9,11 @@ body {
   height: 100%;
 }
 
+mat-card.list-view
+{
+  width: 90%;
+}
+
 @media(min-width :315px) {
   mat-card {
     width: 80%;
@@ -17,6 +22,8 @@ body {
     margin-right: auto;
     margin-top: 2%;
   }
+
+
 }
 
 @media(min-width :992px) {

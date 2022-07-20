@@ -1,4 +1,4 @@
-<mat-progress-bar color="warn" mode="query"></mat-progress-bar>
+<mat-progress-bar *ngIf="layoutService.isLoading" color="warn" mode="query"></mat-progress-bar>
 <mat-toolbar color="primary">
     <button mat-icon-button class="example-icon" (click)="isOpened()" aria-label="Example icon-button with menu icon">
         <mat-icon>menu</mat-icon>

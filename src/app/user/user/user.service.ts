@@ -19,7 +19,8 @@ export class UserService {
 
   private userSubject!: BehaviorSubject<User>;
   public user!: Observable<User>
-
+  _user!:User
+  _users:User[]=[]
   constructor(private route:Router,private http: HttpClient) {
     this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')))
     this.user = this.userSubject.asObservable();
@@ -67,7 +68,21 @@ export class UserService {
   }
 
   //get User
-  getUser() { }
+  getUser():Observable<User[]>{
+    return new Observable(observable=>{
+      if(this._users.length>1){
+        observable.next(this._users)
+        return observable.complete()
+      }
+      let uri=`${reportApi}/api/get-user`
+      let httpOption={headers:httpHeader}
+      this.http.get<User[]>(uri,httpOption).subscribe(users=>{
+        this._users=users
+        observable.next(users)
+        observable.complete()
+      })
+    })
+   }
 
   //add or edit User
   saveUser(user: User): Observable<User> {

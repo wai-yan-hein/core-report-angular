@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef,Output } from '@angular/core';
 import { UserService } from '../user/user/user.service';
+import { LayoutService } from './layout.service';
 @Component({
   selector: 'app-layouts',
   templateUrl: './layouts.component.html',
@@ -8,7 +9,10 @@ import { UserService } from '../user/user/user.service';
 export class LayoutsComponent implements OnInit {
   sideNav: boolean = false
   @ViewChild('sideNav') isSideNav!: ElementRef
-  constructor(private userService: UserService) { }
+  @Output() isLoading:boolean=false
+  constructor(private userService: UserService,public layoutService:LayoutService) {
+    this.isLoading=this.layoutService.isLoading
+   }
 
   ngOnInit(): void {
     this.userService.userValue
@@ -16,7 +20,6 @@ export class LayoutsComponent implements OnInit {
 
   isOpened() {
     this.sideNav = !this.sideNav
-    console.log(this.sideNav)
   }
 
   logoutted() {

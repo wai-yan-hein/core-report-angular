@@ -1,0 +1,60 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Company Setup</mat-card-title>
+        <span class="spacer"></span>
+        <button mat-raised-button [routerLink]="'/company'">back</button>
+    </mat-card-header>
+    <mat-divider inset></mat-divider>
+    <mat-card-content>
+        <form class="example-form" [formGroup]="companyForm" (ngSubmit)="save(companyForm.value)">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Enter Company name</mat-label>
+                <input matInput name="compName" formControlName="compName" autofocus>
+                <mat-error *ngIf="!companyForm.value.compName">Please Enter Company Name </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Enter Phone Number</mat-label>
+                <input matInput name="phone" formControlName="phone">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Enter Email</mat-label>
+                <input matInput name="email" formControlName="email">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Enter Address</mat-label>
+                <input matInput name="address" formControlName="address">
+            </mat-form-field>
+            <mat-form-field class="example-select-width" appearance="outline">
+                <mat-label>Region</mat-label>
+                <mat-select name="region" formControlName="region" [compareWith]="compareRegion">
+                    <mat-option *ngFor="let item of regions" [value]="item"  >
+                        {{item.regName}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="!companyForm.value.region">Please Select Region</mat-error>
+            </mat-form-field>
+            <button mat-mini-fab color="primary" type="button" (click)="addRegion()">
+                <mat-icon>add</mat-icon>
+            </button>
+            <mat-form-field class="example-full-width" appearance="outline" >
+                <mat-label>Date</mat-label>
+                <input matInput [matDatepicker]="picker1" formControlName="startDate" name="startDate">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+                <mat-error *ngIf="!companyForm.value.startDate">Please Enter Date</mat-error>
+            </mat-form-field>
+            <div class="example-checkbox-row">
+                <mat-checkbox color="primary" name="active" formControlName="active">Active
+                </mat-checkbox>
+            </div>
+            <div class="example-button-row">
+                <button mat-raised-button type="submit" color="primary" [disabled]="!companyForm.valid">Save</button>
+                <button mat-raised-button type="reset">Clear</button>
+            </div>
+        </form>
+    </mat-card-content>
+    <mat-card-footer>
+
+    </mat-card-footer>
+</mat-card>

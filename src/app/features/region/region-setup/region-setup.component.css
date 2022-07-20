@@ -1,3 +1,17 @@
+mat-card-content {
+    display: flex;
+}
+
+.container,
+.form-container {
+    flex: 50%;
+    margin: 2%;
+}
+
+table {
+    width: 100%;
+}
+
 .example-form {
     min-width: 150px;
     max-width: 100%;
@@ -10,11 +24,6 @@
 
 td {
     padding-right: 8px;
-}
-
-
-.example-spacer {
-    flex: 1 1 auto;
 }
 
 .example-container .mat-form-field+.mat-form-field {
@@ -33,13 +42,13 @@ section {
 }
 
 .example-button-row {
-    display:flex;
-    justify-content:right;
+    display: flex;
+    justify-content: right;
 }
 
 .example-checkbox-row {
-    display:flex;
-    justify-content:left;
+    display: flex;
+    justify-content: left;
 }
 
 .mat-button-base {
