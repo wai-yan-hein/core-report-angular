@@ -2,11 +2,11 @@
     <mat-card-header>
         <mat-card-title>Company Setup</mat-card-title>
         <span class="spacer"></span>
-        <button mat-raised-button [routerLink]="'/company'">back</button>
+        <button mat-raised-button (click)="backToList()" [routerLink]="'/company'">back</button>
     </mat-card-header>
     <mat-divider inset></mat-divider>
     <mat-card-content>
-        <form class="example-form" [formGroup]="companyForm" (ngSubmit)="save(companyForm.value)">
+        <form #reactiveForm="ngForm" class="example-form" [formGroup]="companyForm" (ngSubmit)="save(companyForm.value)">
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Enter Company name</mat-label>
                 <input matInput name="compName" formControlName="compName" autofocus>
@@ -50,7 +50,7 @@
             </div>
             <div class="example-button-row">
                 <button mat-raised-button type="submit" color="primary" [disabled]="!companyForm.valid">Save</button>
-                <button mat-raised-button type="reset">Clear</button>
+                <button mat-raised-button (click)="onClear()"  type="reset">Clear</button>
             </div>
         </form>
     </mat-card-content>

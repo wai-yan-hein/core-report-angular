@@ -2,11 +2,11 @@
   <mat-card-header>
     <mat-card-title>User Setup</mat-card-title>
   <span class="example-spacer"></span>
-  <button mat-raised-button [routerLink]="'/user'">Back</button>
+  <button mat-raised-button (click)="backToList()" [routerLink]="'/user'">Back</button>
   </mat-card-header>
   <mat-divider ></mat-divider>
   <mat-card-content>
-    <form class="example-form" [formGroup]="userForm" (ngSubmit)="save(userForm.value)">
+    <form #reactiveForm="ngForm"  class="example-form" [formGroup]="userForm" (ngSubmit)="save(userForm.value)">
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Enter your name</mat-label>
         <input matInput name="userName" formControlName="userName" required>
@@ -39,7 +39,7 @@
       </div>
       <div class="example-button-row">
         <button mat-raised-button type="submit" color="primary" [disabled]="!userForm.valid">Save</button>
-        <button mat-raised-button (click)="clearUser()" type="button">Clear</button>
+        <button mat-raised-button (click)="onClear()" type="button">Clear</button>
       </div>
     </form>
   </mat-card-content>

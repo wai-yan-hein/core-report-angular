@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators,NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { RegionDialogComponent } from '../../region/region-dialog/region-dialog.component';
 import { Company } from 'src/app/core/models/company.model';
@@ -19,6 +19,7 @@ export class CompanySetupComponent implements OnInit {
   status:string
   regions: Region[] = []
   todayDate = moment(new Date(), 'MM/DD/YYYY').format('YYYY-MM-DD')
+  @ViewChild('reactiveForm',{static:true}) reactiveForm:NgForm
   constructor(private route: Router, private comService: CompanyService, private regionService: RegionService, public dialog: MatDialog) {
     this.company = {} as Company
   }
@@ -114,13 +115,37 @@ export class CompanySetupComponent implements OnInit {
     console.log(Company)
     this.comService.saveCompany(Company).subscribe({
       next: (company) => {
-        console.log(company)
+        this.comService._companys.push(company)
       },
       error: err => console.log(err),
       complete: () => {
-
+        this.compId=''
+        this.onClear()
+        this.comService._company=undefined
       }
     })
+  }
+
+  //back to list
+  backToList(){
+    this.compId=''
+    this.clearCompany(this.compId)
+    this.comService._company=undefined
+    this.route.navigate(['/company'])
+  }
+
+  //clear data
+  onClear(){
+    this.clearCompany(this.compId)
+    this.reactiveForm.resetForm();
+  }
+
+  //clear Company
+  clearCompany(id:string){
+    this.companyForm.reset()
+    this.company={} as Company
+    this.compId=id
+   this.comService._company=undefined
   }
 
   //compare employee data with initial data

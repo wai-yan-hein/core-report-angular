@@ -1,6 +1,7 @@
 
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { User } from './user';
 import { UserService } from './user.service';
@@ -12,15 +13,17 @@ import { DialogComponent } from 'src/app/dialog/dialog.component';
 })
 export class UserComponent implements OnInit {
   user!: User
-  
-  userCode:string=''
-  status:string=''
+
+  userCode: string = ''
+  status: string = ''
   hide = true;
   loading = false;
-  constructor(private userService: UserService, public dialog: MatDialog) {
+  @ViewChild('reactiveForm', { static: true }) reactiveForm: NgForm
+  constructor(private route: Router, private userService: UserService, public dialog: MatDialog) {
     this.user = {} as User;
   }
 
+  //user Form
   userForm = new FormGroup({
     userName: new FormControl('', [Validators.required, Validators.required]),
     shortName: new FormControl(''),
@@ -31,14 +34,13 @@ export class UserComponent implements OnInit {
   })
 
   ngOnInit(): void {
-    this.status="NEW"
-    if(this.userService._user!=undefined){
-      this.user=this.userService._user
-      this.userCode=this.user.userCode
-      this.status="EDIT"
+    this.status = "NEW"
+    if (this.userService._user != undefined) {
+      this.user = this.userService._user
+      this.userCode = this.user.userCode
+      this.status = "EDIT"
       this.initializeUserForm(this.user);
     }
-    
   }
 
   //initialize form with data on edit
@@ -53,15 +55,7 @@ export class UserComponent implements OnInit {
     });
   }
 
-  getErrorMessage() {
-    // if (this.email.hasError('required')) {
-    //   return 'You must enter a value';
-    // }
-
-    // return this.email.hasError('email') ? 'Not a valid email' : '';
-  }
-
-  //dialog
+  //dialog for error
   openDialog(message: string) {
     this.dialog.open(DialogComponent, {
       width: "200px",
@@ -73,22 +67,46 @@ export class UserComponent implements OnInit {
   }
 
   //add or edit User
-  save(data:any) {
-    data.userCode=this.userCode
-    data.status=this.status
+  save(data: any) {
+    data.userCode = this.userCode
+    data.status = this.status
     console.log(this.user)
     this.userService.saveUser(data).subscribe({
-      next: (v) => console.log(v),
+      next: (v) => {
+        if (v.userCode != undefined) {
+          this.userService._users.push(v)
+        }
+      },
       error: (e) => this.openDialog(e.error.text),
-      complete: () => this.clearUser()
+      complete: () => {
+        this.userCode = ''
+        this.onClear()
+        this.userService._user = undefined
+      }
     })
   }
 
+  //clear data
+  onClear() {
+    //this.userForm.reset();
+    this.clearUser(this.userCode)
+    this.reactiveForm.resetForm();
+  }
+
   //clear user form
-  clearUser() {
+  clearUser(id: string) {
     this.userForm.reset();
-    this.userCode=''
-    this.userService._user=undefined
+    this.user = {} as User
+    this.userCode = id
+    this.userService._user = undefined
+  }
+
+  //back to list
+  backToList() {
+    this.userCode = ''
+    this.onClear()
+    this.userService._user = undefined
+    this.route.navigate(['/user'])
   }
 
   newUser() {
@@ -101,6 +119,14 @@ export class UserComponent implements OnInit {
       email: null,
       active: true
     }
+  }
+
+  getErrorMessage() {
+    // if (this.email.hasError('required')) {
+    //   return 'You must enter a value';
+    // }
+
+    // return this.email.hasError('email') ? 'Not a valid email' : '';
   }
 
 }

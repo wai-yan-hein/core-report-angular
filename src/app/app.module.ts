@@ -33,6 +33,8 @@ import { CompanySetupComponent } from './features/company/company-setup/company-
 import { MatSelectModule } from '@angular/material/select';
 import { RegionDialogComponent } from './features/region/region-dialog/region-dialog.component';
 import { UserListComponent } from './user/user-list/user-list.component';
+import { AgGridModule } from 'ag-grid-angular';
+import { UserCompanyAssignComponent } from './features/user-assign/user-company-assign/user-company-assign.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +47,8 @@ import { UserListComponent } from './user/user-list/user-list.component';
     CompanyComponent,
     CompanySetupComponent,
     RegionDialogComponent,
-    UserListComponent
+    UserListComponent,
+    UserCompanyAssignComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +72,7 @@ import { UserListComponent } from './user/user-list/user-list.component';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    AgGridModule,
   ],
   providers: [HttpErrorHandler, MessageService],
   bootstrap: [AppComponent]

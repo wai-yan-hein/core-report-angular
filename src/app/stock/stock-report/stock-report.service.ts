@@ -2,8 +2,9 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { catchError, Observable } from "rxjs";
 import { HandleError, HttpErrorHandler } from "src/app/http-error-handler.service";
-import { Stock } from "./stock";
-
+import { Stock } from "src/app/core/models/stock.model";
+import { environment } from "src/environments/environment";
+const reportApi=environment.Report_API
 const httpheader = new HttpHeaders({
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
@@ -13,25 +14,16 @@ const httpheader = new HttpHeaders({
 
 @Injectable()
 export class StockReportService {
-    url = 'http://localhost:8078/setup/get-stock';
     private handleError: HandleError;
     constructor(
         private http: HttpClient,
         httpErrorHandler: HttpErrorHandler) {
         this.handleError = httpErrorHandler.createHandleError('StockReportService');
     }
-    //get
-    //search
-    searchStock(compCode: string, active: boolean): Observable<Stock[]> {
-        const options =
-        {
-            headers: httpheader,
-            params: new HttpParams()
-                .set('compCode', compCode)
-                .set('active', true),
-        };
-        return this.http.get<Stock[]>(this.url, options).pipe(
-            catchError(this.handleError<Stock[]>('searchStock', []))
-        );
+    searchStock(compCode: string): Observable<Stock[]> {
+        let uri=`${reportApi}/api/get-stock-balance`
+        let httpParams=new HttpParams().set('compCode',compCode)
+        let httpOption={headers:httpheader,params:httpParams}
+        return this.http.get<Stock[]>(uri, httpOption)
     }
 }
