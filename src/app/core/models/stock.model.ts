@@ -2,7 +2,7 @@ export interface Stock{
     key?:StockKey,
     userCode:string
     stockName:string,
-    balnace:string,
+    balance:string,
     locName:string
 }
 

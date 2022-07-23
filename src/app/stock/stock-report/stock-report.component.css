@@ -1,19 +1,73 @@
 table {
-    width: 100%;
-    height: 100%;
-}
-
-th {
-    font-weight: bold;
-    font-size: large;
-}
-
-tr {
-    font-size: large;
-    font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+  height: 100%;
 }
 
 mat-card {
-    width: 100% !important;
-    height: auto;
+  width: 100% !important;
+  height: auto;
 }
+
+mat-content {
+  align-items: left !important;
+}
+
+.name {
+  text-align: left;
+  width: 80px;
+}
+
+.desp {
+  text-align: left;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: flexbox;
+    margin-bottom: 20px;
+  }
+}
+
+.stockTitle {
+  font-weight: bold;
+  font-size: 16px;
+  vertical-align: auto;
+  text-align: center;
+  margin-top: 3.5%;
+  margin-bottom: auto;
+}
+
+.mat-icon {
+  width: 20px;
+  height: 20px;
+  font-size: 15px;
+  padding-top: 0;
+  margin-top: 0;
+
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+
+.cards {
+  margin: 0 auto;
+  max-width: 90%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  /* grid-template-columns: repeat(auto-fill, minmax(225px, 1fr)); */
+  grid-auto-rows: auto;
+  gap: 20px;
+  font-family: sans-serif;
+  padding-top: 30px;
+}
+
+.cards * {
+  box-sizing: border-box;
+}
+
+
+

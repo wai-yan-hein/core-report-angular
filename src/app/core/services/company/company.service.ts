@@ -23,10 +23,12 @@ export class CompanyService {
     return new Observable(observable=>{
       if(this._companys.length>1){
         observable.next(this._companys)
+        console.log('service')
         return observable.complete()
       }
       let uri=`${reportApi}/api/get-company`
       let httpOption={headers:httpHeaders}
+      console.log('api')
       this.http.get<Company[]>(uri,httpOption).subscribe(companys=>{
         this._companys=companys
         observable.next(companys)

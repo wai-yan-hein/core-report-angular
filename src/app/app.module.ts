@@ -22,6 +22,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DialogComponent } from './dialog/dialog.component';
 
+import {MatMenuModule} from '@angular/material/menu';
+
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -73,6 +75,7 @@ import { UserCompanyAssignComponent } from './features/user-assign/user-company-
     MatDatepickerModule,
     MatNativeDateModule,
     AgGridModule,
+    MatMenuModule,
   ],
   providers: [HttpErrorHandler, MessageService],
   bootstrap: [AppComponent]

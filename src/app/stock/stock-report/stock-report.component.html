@@ -1,12 +1,49 @@
-<mat-card class="example-card">
-    <mat-card-title>Stock Balance Report</mat-card-title>
-</mat-card>
-<ag-grid-angular style="width: 100%; height: 100%;font-size: 8px;font-family: Roboto, 'Arial', 'sans-serif';" class="ag-theme-alpine"
-[rowData]="stocks"
- [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" >
-</ag-grid-angular>
+<!-- <div *ngFor="let itemGroup of stockGroup">
+  <mat-card >
+    <mat-card-title>Stock Code: {{itemGroup}}</mat-card-title>
 
+    <mat-divider></mat-divider>
+    <mat-card-content>
 
-<div class="grid-container">
-    
+    </mat-card-content>
+  </mat-card>
+  <br>
+</div> -->
+
+<div class="cards">
+  <div class="card" *ngFor="let item of StockData">
+    <mat-card class="">
+      <mat-card-header>
+        <span class="spacer"></span>
+        <span class="stockTitle">{{item[1][0].stockName}}</span>
+        <span class="spacer"></span>
+        <button mat-icon-button (click)="pinStock(item)">
+          <mat-icon [color]="item[1][0].pin ? 'primary':'white'" [@indicatorRotate]="item[1][0].pin ? 'expanded': 'collapsed'">
+            push_pin
+          </mat-icon>
+        </button>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <br>
+      <mat-card-content>
+        <table>
+          <tr>
+            <td class="name">Stock Code</td>
+            <td>:</td>
+            <td class="desp"> {{item[1][0].userCode==null?item[0]:item[1][0].userCode}}</td>
+          </tr>
+          <tr *ngFor="let items of item[1]">
+            <td class="name">Balance</td>
+            <td>:</td>
+            <td class="desp">{{items.balance}} ({{items.locName}})</td>
+          </tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
   </div>
+</div>
+
+
+<!-- <ag-grid-angular style="width: 100%; height: 100%;font-size: 8px;font-family: Roboto, 'Arial', 'sans-serif';"
+  class="ag-theme-alpine" [rowData]="stocks" [columnDefs]="columnDefs" [defaultColDef]="defaultColDef">
+</ag-grid-angular> -->

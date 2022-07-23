@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  Report_API:'http://192.168.100.42:100'
+  Report_API:'http://54.149.111.147:100'
 };
 
 /*

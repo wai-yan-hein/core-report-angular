@@ -42,6 +42,7 @@ export class CompanySetupComponent implements OnInit {
       this.compId=this.company.compCode
       this.status='Edit'
       this.initializeCompanyForm(this.company)
+      this.company.email='htut.com testing'
     }
   }
 
@@ -115,7 +116,10 @@ export class CompanySetupComponent implements OnInit {
     console.log(Company)
     this.comService.saveCompany(Company).subscribe({
       next: (company) => {
-        this.comService._companys.push(company)
+        if(this.compId==''){
+          this.comService._companys.push(company)
+        }
+      
       },
       error: err => console.log(err),
       complete: () => {
